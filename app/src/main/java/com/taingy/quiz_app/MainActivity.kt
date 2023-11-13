@@ -7,6 +7,7 @@ import android.widget.CheckBox
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import java.text.DateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -42,7 +43,8 @@ class MainActivity : AppCompatActivity() {
             val date = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm")
             val formattedDate = date.format(formatter)
-            Toast.makeText(this, "Congratulations! You submitted on ${formattedDate}, you achieved ${score}%!", Toast.LENGTH_LONG).show()
+            val msg = "Congratulations! You submitted on ${formattedDate}, you achieved ${score}%!"
+            showAlertDialog(msg)
         }
 
         btReset.setOnClickListener {
@@ -52,6 +54,16 @@ class MainActivity : AppCompatActivity() {
             cb3.isChecked = false
             cb4.isChecked = false
         }
+    }
 
+    private fun showAlertDialog(message: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Alert")
+        builder.setMessage(message)
+        builder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 }
